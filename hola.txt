@@ -1,0 +1,77 @@
+https://github.com/plataformatec/devise
+
+ejecutamos 
+rails new deviseProject
+
+en el gemfile
+ponemos
+
+gem 'devise'
+
+ejecutamos
+
+bundle
+
+ejecutar
+
+rails generate devise:install
+
+
+en config/environmets/development.rb
+
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+en config/routes.rb
+
+root to: "home#index"
+
+Ejecutamos
+
+rails generate controller home index
+
+en app/views/layouts/application.html.erb. ponemos
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+Ejecutamos
+
+rails g devise:views
+
+Para crear el modelo user ejecutamos
+
+rails g devise user
+
+Ejecutamos 
+
+rails db:migrate
+
+subimos el servidor 
+
+rails s
+
+vamos a 
+http://localhost:3000/users/sign_up
+
+en app/views/layouts/application.html.rb
+
+<%- if user_signed_in?%>
+    tu estas logueado
+        <%=link_to "salir", destroy_user_session_path, method: :delete%>
+    <% else %>
+        <%=link_to "inicio sesion", new_user_session_path%>
+        <%=link_to "registro",new_user_registration_path %>
+<% end -%>
+
+ingresamos 
+
+http://localhost:3000/users/sign_in
+
+app/views/home/index.html.erb
+
+<%-if current_user%>
+<h1>Hola 
+    <%=current_user.email%>
+</h1>
+
+<% end -%>
